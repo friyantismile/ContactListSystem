@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Update Contact', ['id' => $user->id]) }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('update-contact') }}">
+                    <form method="POST" action="{{ route('update-user',  ['id' => $user->id]) }}">
                         @csrf
                         <input type="hidden" name="_method" class="form-control" value="PUT" required>
                         <div class="form-group row">

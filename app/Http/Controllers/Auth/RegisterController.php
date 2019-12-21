@@ -77,13 +77,13 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        \Mail::to($user->email, $user->last_name)->send(new ContactNotification((array) $user));
-        if (count(\Mail::failures()) > 0) {
-            $errormsg = '';
-            foreach (\Mail::failures() as $error) {
-                $errormsg .= " - $error <br />";
-            }
-        }
+        // \Mail::to($user->email, $user->last_name)->send(new ContactNotification($user));
+        // if (count(\Mail::failures()) > 0) {
+        //     $errormsg = '';
+        //     foreach (\Mail::failures() as $error) {
+        //         $errormsg .= " - $error <br />";
+        //     }
+        // }
         return $user;
     }
 }
