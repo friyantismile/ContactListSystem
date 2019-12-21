@@ -37,10 +37,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -76,14 +76,17 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        try{
+            \Mail::to($user->email, $user->last_name)->send(new ContactNotification($user));
+            if (count(\Mail::failures()) > 0) {
+                $errormsg = '';
+                foreach (\Mail::failures() as $error) {
+                    $errormsg .= " - $error <br />";
+                }
+            }
+        } catch (\Exception $e) {
 
-        // \Mail::to($user->email, $user->last_name)->send(new ContactNotification($user));
-        // if (count(\Mail::failures()) > 0) {
-        //     $errormsg = '';
-        //     foreach (\Mail::failures() as $error) {
-        //         $errormsg .= " - $error <br />";
-        //     }
-        // }
+        }
         return $user;
     }
 }
